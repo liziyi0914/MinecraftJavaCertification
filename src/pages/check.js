@@ -49,20 +49,9 @@ export default class extends react.Component {
 	}
 
 	onSubmit(values) {
-		this.setState({loading:true,code:values.code});
-		fetch('https://api.mojang.com/users/profiles/minecraft/'+values.id,{mode:'cors'})
-			.then(res=>res.json())
-			.then(json=>{
-				console.log(json)
-				this.setState({uuid:json.id});
-				message.success('UUID获取成功');
-				this.getProfile();
-			})
-			.catch(err=>{
-				console.log(err);
-				message.error('UUID获取失败');
-				this.onFail();
-			});
+		this.setState({loading:true,code:values.code, skinURL: 'https://mineskin.de/skin/'+values.id});
+		this.skinImg.crossOrigin = '';
+		this.skinImg.src = this.state.skinURL;
 	}
 
 	onSkinLoad() {
@@ -71,23 +60,6 @@ export default class extends react.Component {
 			width: this.skinImg.width,
 			height: this.skinImg.height
 		});
-	}
-
-	getProfile() {
-		fetch('/api/profile/'+this.state.uuid)
-			.then(res=>res.json())
-			.then(json=>JSON.parse(atob(json.properties[0].value)))
-			.then(json=>{
-				this.setState({skinURL:json.textures.SKIN.url.replace('http://textures.minecraft.net/texture/','/api/skin/')});
-				this.skinImg.crossOrigin = '';
-				this.skinImg.src = this.state.skinURL;
-				message.success('皮肤链接获取成功');
-			})
-			.catch(err=>{
-				console.log(err);
-				message.error('皮肤链接获取失败');
-				this.onFail();
-			});
 	}
 
 	onFail() {

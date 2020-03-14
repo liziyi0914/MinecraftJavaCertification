@@ -35,5 +35,6 @@
   },
   "engines": {
     "node": ">=8.0.0"
-  }
+  },
+  "homepage": "https://liziyi0914.github.io/MinecraftJavaCertification"
 }

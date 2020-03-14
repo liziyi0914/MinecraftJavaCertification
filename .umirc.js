@@ -3,6 +3,7 @@
 export default {
 	history: 'hash',
 	base: '/MinecraftJavaCertification',
+	publicPath: '/MinecraftJavaCertification',
 	treeShaking: true,
 	proxy: {
 		'/api/uuid': {

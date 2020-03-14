@@ -50,7 +50,7 @@ export default class extends react.Component {
 
 	onSubmit(values) {
 		this.setState({loading:true,code:values.code});
-		fetch('https://api.mojang.com/users/profiles/minecraft/'+values.id)
+		fetch('https://api.mojang.com/users/profiles/minecraft/'+values.id,{mode:'cors'})
 			.then(res=>res.json())
 			.then(json=>{
 				console.log(json)

@@ -2,7 +2,6 @@
 // ref: https://umijs.org/config/
 export default {
 	history: 'hash',
-	base: '/MinecraftJavaCertification',
 	publicPath: '/MinecraftJavaCertification/',
 	treeShaking: true,
 	proxy: {

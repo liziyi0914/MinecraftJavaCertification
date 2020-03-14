@@ -50,7 +50,7 @@ export default class extends react.Component {
 
 	onSubmit(values) {
 		this.setState({loading:true,code:values.code});
-		fetch('/api/uuid/'+values.id)
+		fetch('https://api.mojang.com/users/profiles/minecraft/'+values.id)
 			.then(res=>res.json())
 			.then(json=>{
 				console.log(json)

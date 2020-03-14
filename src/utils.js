@@ -23,6 +23,7 @@ class Color {
 	}
 
 	static RED = new Color(255,0,0);
+	static GLASS = new Color(0,0,0,0);
 
 }
 

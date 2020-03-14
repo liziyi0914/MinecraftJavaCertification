@@ -63,6 +63,7 @@ export default class extends react.Component {
 	}
 
 	onFail() {
+		this.ctx.clearRect(0,0,this.state.width,this.state.height);
 		this.setState({loading: false});
 		this.skinImgLoaded = false;
 		this.pid = setInterval(()=>this.worker(),500);
@@ -99,7 +100,7 @@ export default class extends react.Component {
 					<Button type="primary" htmlType="submit" loading={this.state.loading}>查询</Button>
 				</Form.Item>
 			</Form>
-			<img ref={i=>this.skinImg=i} onLoad={()=>this.onSkinLoad()}/>
+			<img ref={i=>this.skinImg=i} onLoad={()=>this.onSkinLoad()} alt=''/>
 			<canvas ref={c=>this.canvas=c} width={this.state.width} height={this.state.height}/>
 		</Card>
 		);

@@ -1,15 +1,11 @@
 import react from 'react';
 import {
 	Card,
-	Upload,
-	Button,
 	Row,
 	Col
 } from 'antd';
 import {
 	Picture,
-	Color,
-	Hash
 } from '../utils';
 
 export default class extends react.Component {

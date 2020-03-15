@@ -18,12 +18,13 @@ export default class extends react.Component {
 	canvas = null;
 	ctx = null;
 	originSkin = null;
+	originSkinLoaded = false;
 
 	constructor() {
 		super();
 		this.state = { width: 100, height: 100, result: '', showCanvas: true };
 		this.pid = setInterval(()=>{
-			if(this.canvas!=null && this.ctx!=null && this.originSkin!=null) {
+			if(this.canvas!=null && this.ctx!=null && this.originSkinLoaded) {
 				clearInterval(this.pid);
 				this.ctx.drawImage(this.originSkin,0,0);
 				var data = this.ctx.getImageData(0,0,this.state.width,this.state.height);
@@ -34,11 +35,16 @@ export default class extends react.Component {
 	}
 
 	onLoad(e) {
-		this.originSkin = e.target;
+		this.originSkinLoaded = true;
 		this.setState({
 			width: this.originSkin.width,
 			height: this.originSkin.height
 		});
+	}
+
+	componentDidMount() {
+		this.originSkin.crossOrigin = '';
+		this.originSkin.src = this.props.originSkinURL;
 	}
 
 	render() {
@@ -48,7 +54,7 @@ export default class extends react.Component {
 			<Row>
 				<Col span={10}>原始皮肤</Col>
 				<Col span={14}>
-					<img src={this.props.originSkinURL} onLoad={(e)=>this.onLoad(e)}/>
+					<img onLoad={(e)=>this.onLoad(e)} ref={img=>this.originSkin=img}/>
 				</Col>
 			</Row>
 			<Row>

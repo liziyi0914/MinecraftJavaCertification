@@ -1,5 +1,5 @@
 import react from 'react';
-import { Upload, Button } from 'antd';
+import { Input, Button, Form } from 'antd';
 
 export default class extends react.Component {
 
@@ -7,27 +7,34 @@ export default class extends react.Component {
 		onUpload: function(dataURL){}
 	};
 
-	reader = new FileReader();
-
 	constructor() {
 		super();
 		this.state = { dataURL: '' };
-		this.reader.onload = ()=>{
-			this.setState({dataURL:this.reader.result});
-			this.props.onUpload(this.reader.result);
-		};
 	}
 
-	onUpload(f) {
-		this.reader.readAsDataURL(f);
+	onSubmit(id) {
+		this.setState({dataURL: 'https://mineskin.de/skin/'+id});
+		this.props.onUpload(this.state.dataURL);
 	}
 
 	render() {
 		return (
 		<div>
-			<Upload beforeUpload={(f)=>this.onUpload(f)}>
-				<Button>上传皮肤</Button>
-			</Upload>
+			<Form
+				onFinish={values=>this.onSubmit(values.id)}
+			>
+				<Form.Item
+					label='正版ID'
+					name='id'
+					rules={[{
+						required: true,
+						message: '请输入正版ID',
+					}]}
+				><Input/></Form.Item>
+				<Form.Item>
+					<Button type="primary" htmlType="submit">拉取皮肤</Button>
+				</Form.Item>
+			</Form>
 			<img src={this.state.dataURL}/>
 		</div>
 		);
